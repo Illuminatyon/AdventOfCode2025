@@ -1,3 +1,5 @@
+package Part2;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -14,15 +16,22 @@ public class Main {
                 char direction = instruction.charAt(0);
                 int distance = Integer.parseInt(instruction.substring(1));
                 if (direction == 'R') {
-                    currentPosition = (currentPosition + distance) % 100;
+                    for (int i = 1; i <= distance; i++) {
+                        currentPosition = (currentPosition + 1) % 100;
+                        if (currentPosition == 0) {
+                            zeroCount++;
+                        }
+                    }
                 } else if (direction == 'L') {
-                    currentPosition = (currentPosition - (distance % 100) + 100) % 100;
-                }
-                if (currentPosition == 0) {
-                    zeroCount++;
+                    for (int i = 1; i <= distance; i++) {
+                        currentPosition = (currentPosition - 1 + 100) % 100;
+                        if (currentPosition == 0) {
+                            zeroCount++;
+                        }
+                    }
                 }
             }
-            System.out.println("Le mot de passe du coffre-fort est : " + zeroCount);
+            System.out.println("Le nouveau mot de passe (méthode 0x434C49434B) est : " + zeroCount);
         } catch (FileNotFoundException e) {
             System.err.println("Fichier introuvable : " + e.getMessage());
         }
